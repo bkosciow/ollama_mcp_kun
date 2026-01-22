@@ -25,9 +25,8 @@ async def init_server(ollama_url: str, ollama_model: str, mcps: dict):
 async def chat(request: PromptRequest):
     if not assistant:
         raise HTTPException(status_code=500, detail="Assistant not initialized")
-    async with ollama_lock:
-        try:
-            response = await assistant.query(request.prompt)
-            return {"response": response['message']}
-        except Exception as e:
-            raise HTTPException(status_code=500, detail=str(e))
+    try:
+        response = await assistant.query(request.prompt)
+        return {"response": response['message']}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
