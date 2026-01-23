@@ -2,7 +2,7 @@ from fastmcp import Client as MCPClient
 import ollama
 import json
 import logging
-
+import os
 
 logger = logging.getLogger(__name__)
 
@@ -14,6 +14,7 @@ class AIKun:
         self.session_manager = session_manager
         self.ollama_tools = []
         self.url_to_tool = {}
+        os.environ["OLLAMA_HOST"] = ollama_url
 
     async def load_mcps(self, mcps: list=[]):
         for mcp in mcps:
