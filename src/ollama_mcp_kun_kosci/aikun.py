@@ -14,10 +14,12 @@ class AIKun:
         self.session_manager = session_manager
         self.ollama_tools = []
         self.url_to_tool = {}
+        self.mcps = []
 
     async def load_mcps(self, mcps: list=[]):
         for mcp in mcps:
             await self.load_mcp(mcp)
+        self.mcps = mcps
 
     async def load_mcp(self, mcp_url: str):
         async with MCPClient(mcp_url) as mcp:
@@ -32,6 +34,10 @@ class AIKun:
                         "parameters": tool.inputSchema,
                     },
                 })
+
+    async def clear_mcps(self):
+        self.ollama_tools = []
+        self.url_to_tool = {}
 
     async def handle_tools(self, tools: list):
         messages = []
