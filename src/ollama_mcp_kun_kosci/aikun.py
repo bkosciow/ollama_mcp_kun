@@ -89,3 +89,11 @@ class AIKun:
         )
 
         return await self.parse_response(followup_response, session)
+
+    async def get_models(self):
+        try:
+            response = ollama.list()
+            return response.get("models", [])
+        except Exception as e:
+            logger.error(f"Failed to fetch models from Ollama: {e}")
+            return []
