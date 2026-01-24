@@ -14,7 +14,6 @@ class AIKun:
         self.session_manager = session_manager
         self.ollama_tools = []
         self.url_to_tool = {}
-        os.environ["OLLAMA_HOST"] = ollama_url
 
     async def load_mcps(self, mcps: list=[]):
         for mcp in mcps:
